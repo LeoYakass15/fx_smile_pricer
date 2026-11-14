@@ -156,35 +156,7 @@ second-order effect (the option's vega changes when vol moves), which the desk w
 re-hedge as vol moves. The "risk-off" line is the reason to hold this option: in a
 sell-off, EUR/USD vol rises and the skew steepens, and the option gains on both.
 
-## 5. How I would present it in an interview
-
-- *"Black-Scholes prices barriers with one vol. FX desks fix it with Vanna-Volga: price the
-  exotic at ATM vol, then add the cost of hedging its vega, vanna and volga with three
-  vanillas on the real smile."*
-- *"I built the EUR/USD smile from Bloomberg's ATM, 25D RR and 25D BF quotes. It
-  reproduces the Bloomberg quick pricer exactly and finds the 10D vols, which I never used,
-  to within 0.5 vol bp at 6 months."*
-- *"On a 6M down-and-in EUR put, the smile adds about 5 to 10 bp, because the option is
-  long skew and EUR puts are dear. On a down-and-out call it takes off 3 to 5 bp. My
-  numbers match Bloomberg's in direction, and the level gap is about half a bid-ask."*
-- *"As a buyer, I would look at the risk in quotes: €3,000 per vol point of ATM, −€1,300
-  per point of risk reversal. The Black-Scholes vega overstates the vol risk by 35%."*
-
-**Questions to expect, with short answers:**
-
-- *Why is the EUR/USD risk reversal negative?* The market pays more for protection against
-  a fall of the euro: in a risk-off move, USD is the safe currency and EUR/USD falls while
-  vol rises. This is the same spot/vol correlation that makes equity puts expensive.
-- *Why weight by survival probability?* Once the knock-out is dead, the hedge is no longer
-  needed. Without the weight, Vanna-Volga overstates the smile effect on knock-outs.
-- *Limits of Vanna-Volga?* It is a static recipe with no model dynamics, so prices and
-  Greeks of path-dependent options depend on the chosen weights. A bank would check it
-  against a local-stochastic-vol model.
-- *Why not use the Black-Scholes vega for the hedge?* It ignores that a vol move happens
-  together with a skew and a convexity. Bumping the market quotes gives the risk in the
-  instruments you actually trade.
-
-## 6. Simplifications
+## 5. Simplifications
 
 - I treat the broker butterfly as a "smile strangle". Strictly, the broker quote is a
   "market strangle", and the two differ when the skew is large.
