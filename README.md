@@ -185,7 +185,3 @@ pytest                      # 7 tests
 | `fxsmile/market.py` | Bloomberg data of 29 Oct 2026 |
 | `run_analysis.py` | the whole study, step by step |
 
-**References.** Castagna & Mercurio (2007), *The Vanna-Volga method for implied
-volatilities*, Risk. Wystup (2006), *FX Options and Structured Products*. Bossens, Rayée,
-Skantzos & Deelstra (2010), *Vanna-Volga methods applied to FX derivatives*. Haug (2007),
-*The Complete Guide to Option Pricing Formulas* (barrier formulas).
