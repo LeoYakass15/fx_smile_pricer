@@ -1,0 +1,7 @@
+scenario,unhedged_eur,hedged_eur
+RR -0.5 (skew steeper),662.0,0.0
+RR +0.5 (skew flatter),-625.0,-0.0
+BF +0.2 (fatter wings),-329.0,-0.0
+ATM +1 vol,3299.0,309.0
+ATM -1 vol,-2536.0,616.0
+"Risk-off: ATM +1, RR -0.5",3679.0,82.0

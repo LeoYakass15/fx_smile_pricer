@@ -1,0 +1,5 @@
+option,kind,barrier_type,strike,barrier,spot,model,price_pct_eur,premium_eur,gamma_eur,vega_eur
+Call EUR down-and-out,call,down-and-out,1.1248,1.0604,1.1163,BS,1.7820,17819.67,80317.86,2612.40
+Call EUR down-and-out,call,down-and-out,1.1248,1.0604,1.1163,VV,1.7547,17547.39,96616.15,2238.83
+Put EUR down-and-in,put,down-and-in,1.1249,1.0605,1.1164,BS,1.1876,11876.02,132656.23,4135.98
+Put EUR down-and-in,put,down-and-in,1.1249,1.0605,1.1164,VV,1.2844,12843.83,127011.89,2909.42

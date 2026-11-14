@@ -1,0 +1,66 @@
+EUR/USD spot 1.11625, 29 Oct 2026 (Bloomberg OVDV + FRD, mid)
+
+       forward  usd_rate_%  eur_rate_%  atm_%  rr25_%  bf25_%
+tenor                                                        
+1M     1.11758       4.002       2.643  5.658  -0.360   0.178
+3M     1.12059       4.102       2.564  6.020  -0.562   0.222
+6M     1.12484       4.194       2.657  6.458  -0.748   0.268
+1Y     1.13368       4.151       2.601  6.858  -0.923   0.348
+
+Check 1: 1M ATM call vs Bloomberg quick pricer
+                           mine  bloomberg
+ATM strike               1.1177     1.1177
+call price bid (% USD)   0.6439     0.6440
+call price ask (% USD)   0.6739     0.6740
+call spot delta (%)     49.8843    49.8970
+
+Check 2: the smile is built on 25D quotes only. Does it find the market 10D vols?
+       10D put market  10D put VV  10D call market  10D call VV  max error (vol bp)
+tenor                                                                              
+1M              6.620       6.665            5.950        5.971               4.464
+3M              7.340       7.370            6.300        6.296               3.037
+6M              8.131       8.136            6.719        6.715               0.492
+1Y              8.995       9.003            7.260        7.273               1.328
+
+6M barriers, % of EUR notional (Bloomberg OVML inputs)
+                       bs_mine  bs_ovml  vv_mine  vv_ovml  smile_effect_mine_bp  smile_effect_ovml_bp  premium_vv_mine_eur
+option                                                                                                                    
+Call EUR down-and-out   1.7871   1.7820   1.7316   1.7547               -5.5459                 -2.73           17316.2988
+Put EUR down-and-in     1.1870   1.1876   1.2398   1.2844                5.2737                  9.68           12397.5793
+
+Black-Scholes Greeks vs OVML screen (1M EUR notional)
+option                          Call EUR down-and-out  Put EUR down-and-in
+delta % (premium-adjusted)                       49.5                -46.8
+delta % OVML                                     49.4                -46.8
+gamma EUR (1% move)                           80354.1             132675.3
+gamma EUR OVML                                80317.9             132656.2
+vega EUR (1 vol pt)                            2613.3               4135.7
+vega EUR OVML                                  2612.4               4136.0
+vanna EUR (1 vol pt x 1% spot)                  105.1               -452.0
+volga EUR (1 vol pt squared)                   -148.8               -157.0
+
+Smile cost split, bp of notional
+                       vanna_bp  volga_bp  survival_prob  ovml_bp
+option                                                           
+Call EUR down-and-out     -2.60     -5.37           0.78    -2.73
+Put EUR down-and-in       11.19     -5.67           0.78     9.68
+
+KI put risk per 1 vol pt of each quote (EUR, 1M EUR): {'ATM': 3051, 'RR': -1276, 'BF': -1694}
+
+Check 3: vega once the smile is taken into account
+                       VV vega mine (EUR)  VV vega OVML (EUR)  BS vega OVML (EUR)
+Call EUR down-and-out              2287.0              2239.0              2612.0
+Put EUR down-and-in                3051.0              2909.0              4136.0
+
+Long 1M EUR of the 6M KI put: P&L in EUR when the smile moves (spot unchanged)
+Hedge (calls per EUR of notional, short): {'25D put strike': 0.208, 'ATM': 1.722, '25D call strike': -0.987}
+                           unhedged_eur  hedged_eur
+scenario                                           
+RR -0.5 (skew steeper)            662.0         0.0
+RR +0.5 (skew flatter)           -625.0        -0.0
+BF +0.2 (fatter wings)           -329.0        -0.0
+ATM +1 vol                       3299.0       309.0
+ATM -1 vol                      -2536.0       616.0
+Risk-off: ATM +1, RR -0.5        3679.0        82.0
+
+Charts and tables written to results/
